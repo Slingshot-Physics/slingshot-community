@@ -1,0 +1,10 @@
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/Catch2_header_only )
+
+add_subdirectory( containers )
+add_subdirectory( constraint_stove_tests )
+add_subdirectory( datamodel )
+add_subdirectory( geometry )
+add_subdirectory( graph )
+add_subdirectory( json )
+add_subdirectory( physics )
+add_subdirectory( math )

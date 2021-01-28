@@ -1,0 +1,114 @@
+# Builds the project in multiple modes and runs all of the existing unit tests.
+
+name: "Build-Run-Windows"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+# Note that the container created by workflows maps part of the local volume to
+# the container. Specifically ~/actions-runner/_work. Successive jobs can reuse
+# the output of their predecessors without having to generate artifacts.
+jobs:
+
+  build-release:
+    runs-on: [self-hosted, Windows]
+    steps:
+      - name: Check git
+        run: git --version
+
+      - name: What's in the path?
+        run: echo $env:PATH
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: build-windows-workflow
+          token: ${{ secrets.PIPELINE_PAT }}
+          submodules: true
+
+      - name: Where the hell am I
+        run: |
+          pwd
+          ls
+
+      - name: Build in release
+        run: |
+          cd build-windows-workflow
+          .\makeme.bat -DBUILD_TESTS=0 -DBUILD_VIZ=0 -DCMAKE_BUILD_TYPE=release -DOPTIMIZATION_OPT=o3
+
+  run-no-viz-release-scenarios:
+    needs: build-release
+    runs-on: [self-hosted, windows]
+    defaults:
+      run:
+        working-directory: build-windows-workflow
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario_filename: [
+          ../demos/scenarios/stack_smash_scenario.json,
+          ../demos/scenarios/box_stack_scenario.json,
+          ../demos/scenarios/big_fall_scenario.json,
+          ../demos/scenarios/big_fall_scenario.json,
+          ../demos/scenarios/big_box_stack_scenario.json,
+        ]
+    steps:
+      - name: Run no-viz debug on ${{ matrix.scenario_filename }}
+        run: |
+          cd build
+          ./bin/api_no_viz ${{ matrix.scenario_filename }}
+
+  build-no-viz-debug:
+    needs: run-no-viz-release-scenarios
+    runs-on: [self-hosted, Windows]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          token: ${{ secrets.PIPELINE_PAT }}
+          path: build-windows-workflow
+
+      - name: Where the hell am I
+        run: |
+          pwd
+          ls
+
+      - name: Delete old build, build in debug
+        run: |
+          cd build-windows-workflow
+          .\makeme.bat -DBUILD_TESTS=0 -DBUILD_VIZ=0
+
+  run-no-viz-debug-scenarios:
+    needs: build-no-viz-debug
+    runs-on: [self-hosted, windows]
+    defaults:
+      run:
+        working-directory: build-windows-workflow
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario_filename: [
+          ../demos/scenarios/stack_smash_scenario.json,
+          ../demos/scenarios/box_stack_scenario.json,
+          ../demos/scenarios/big_fall_scenario.json,
+          ../demos/scenarios/big_fall_scenario.json,
+          ../demos/scenarios/big_box_stack_scenario.json,
+        ]
+    steps:
+      - name: Run no-viz debug on ${{ matrix.scenario_filename }}
+        run: |
+          cd build
+          ./bin/api_no_viz ${{ matrix.scenario_filename }}

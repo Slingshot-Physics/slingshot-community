@@ -1,0 +1,16 @@
+build
+logs
+*.sln
+*.vcxproj*
+*.vscode
+*.code-workspace
+*.data
+*.ipynb*
+*.pyc
+*.log
+*.png
+*cmake_install.cmake
+*CMakeFiles
+*CMakeCache.txt
+*.ini
+*.DS_Store

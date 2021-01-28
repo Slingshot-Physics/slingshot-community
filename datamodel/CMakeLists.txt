@@ -1,0 +1,142 @@
+set(
+   headers
+   data_constants.h
+   data_constraint_balljoint.h
+   data_constraint_collision.h
+   data_constraint_friction.h
+   data_constraint_gear.h
+   data_constraint_revolute_joint.h
+   data_constraint_revolute_motor.h
+   data_constraint_rotation_1d.h
+   data_constraint_translation_1d.h
+   data_enums.h
+   data_force_constant.h
+   data_force_drag.h
+   data_force_spring.h
+   data_force_velocity_damper.h
+   data_gauss_map_face.h
+   data_gauss_map_mesh.h
+   data_gjk_result.h
+   data_isometric_collider.h
+   data_isometric_transform.h
+   data_lean_neighbor_triangle.h
+   data_logger_config.h
+   data_matrix33.h
+   data_mesh_triangle.h
+   data_minkowski_diff_simplex.h
+   data_multi_collider.h
+   data_polygon50.h
+   data_quaternion.h
+   data_rigidbody.h
+   data_scenario.h
+   data_shape.h
+   data_shape_capsule.h
+   data_shape_cube.h
+   data_shape_cylinder.h
+   data_shape_named.h
+   data_shape_sphere.h
+   data_test_gjk_input.h
+   data_test_tetrahedron_input.h
+   data_test_triangle_input.h
+   data_tetrahedron.h
+   data_torque_drag.h
+   data_transform.h
+   data_triangle_mesh.h
+   data_triangle.h
+   data_vector3.h
+   data_vector4.h
+   data_viz_config.h
+   data_viz_scenario_config.h
+   data_viz_mesh_properties.h
+   data_model.h
+   helper_data_to_json.h
+   helper_json_to_data.h
+   data_model_io.h
+)
+
+set(
+   sources
+   helper_data_to_json.c
+   helper_json_to_data.c
+   data_model_io.c
+   data_constraint_balljoint.c
+   data_constraint_collision.c
+   data_constraint_friction.c
+   data_constraint_gear.c
+   data_constraint_revolute_joint.c
+   data_constraint_revolute_motor.c
+   data_constraint_rotation_1d.c
+   data_constraint_translation_1d.c
+   data_force_constant.c
+   data_force_drag.c
+   data_force_spring.c
+   data_force_velocity_damper.c
+   data_gauss_map_face.c
+   data_gauss_map_mesh.c
+   data_gjk_result.c
+   data_isometric_collider.c
+   data_isometric_transform.c
+   data_lean_neighbor_triangle.c
+   data_logger_config.c
+   data_matrix33.c
+   data_mesh_triangle.c
+   data_minkowski_diff_simplex.c
+   data_multi_collider.c
+   data_polygon50.c
+   data_quaternion.c
+   data_rigidbody.c
+   data_scenario.c
+   data_shape.c
+   data_shape_capsule.c
+   data_shape_cube.c
+   data_shape_cylinder.c
+   data_shape_named.c
+   data_shape_sphere.c
+   data_test_gjk_input.c
+   data_test_tetrahedron_input.c
+   data_test_triangle_input.c
+   data_tetrahedron.c
+   data_torque_drag.c
+   data_transform.c
+   data_triangle_mesh.c
+   data_triangle.c
+   data_vector3.c
+   data_vector4.c
+   data_viz_config.c
+   data_viz_scenario_config.c
+   data_viz_mesh_properties.c
+)
+
+set(
+   target
+   datamodel
+)
+
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
+
+add_library(
+   ${target}
+   SHARED
+   ${sources}
+   ${headers}
+)
+
+set_target_properties(
+   ${target}
+   PROPERTIES
+   LINKER_LANGUAGE
+   C
+   C_STANDARD 99
+   C_STANDARD_REQUIRED ON
+)
+
+target_include_directories(
+   ${target}
+   PUBLIC
+   ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(
+   ${target}
+   edbdjson
+)

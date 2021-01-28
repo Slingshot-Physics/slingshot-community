@@ -1,0 +1,139 @@
+Function,CPU Time,CPU Time:Effective Time,CPU Time:Spin Time,CPU Time:Overhead Time,Module,Function (Full),Source File,Start Address
+HeapMatrix::innerProductRow,0.605998,0.605998,0.0,0.0,libedbdmath.so,"HeapMatrix::innerProductRow(unsigned int, HeapMatrix const&) const",heap_matrix.cpp,0x2f60
+ProjectedGaussSeidel,0.256022,0.256022,0.0,0.0,libedbdmath.so,"ProjectedGaussSeidel(HeapMatrix const&, HeapMatrix const&, HeapMatrix const&, HeapMatrix&)",heap_matrix.cpp,0x3ae0
+HeapMatrix::index,0.140004,0.140004,0.0,0.0,libedbdmath.so,"HeapMatrix::index(unsigned int, unsigned int) const",heap_matrix.hpp,0x2ef0
+HeapMatrix::operator(),0.128025,0.128025,0.0,0.0,libedbdmath.so,"HeapMatrix::operator()(unsigned int, unsigned int) const",heap_matrix.cpp,0x2ef0
+fzx::constraints::iterative_solver::contractJmaKaJna,0.115954,0.115954,0.0,0.0,libconstraints.so,"fzx::constraints::iterative_solver::contractJmaKaJna(int, int, int, HeapMatrix const&, HeapMatrix const&)",iterative_constraint_solver.cpp,0xa230
+HeapMatrix::operator*,0.095977,0.095977,0.0,0.0,libedbdmath.so,HeapMatrix::operator*(HeapMatrix const&) const,heap_matrix.cpp,0x3240
+"std::find<std::_Deque_iterator<unsigned int, unsigned int&, unsigned int*>, unsigned int>",0.084007,0.084007,0.0,0.0,liballocator.so,"std::find<std::_Deque_iterator<unsigned int, unsigned int&, unsigned int*>, unsigned int>(std::_Deque_iterator<unsigned int, unsigned int&, unsigned int*>, std::_Deque_iterator<unsigned int, unsigned int&, unsigned int*>, unsigned int const&)",stl_algo.h,0x13fd7
+operator new,0.067983,0.067983,0.0,0.0,libstdc++.so.6,operator new(unsigned long),[Unknown],0xa6040
+fzx::constraints::collision::broadPhase,0.063962,0.063962,0.0,0.0,libconstraint_collision.so,"fzx::constraints::collision::broadPhase(trecs::Allocator&, std::vector<fzx::types::collisionCandidate_s, std::allocator<fzx::types::collisionCandidate_s>>&)",broadphase.cpp,0x2530
+HeapMatrix::Initialize,0.059999,0.059999,0.0,0.0,libedbdmath.so,HeapMatrix::Initialize(void),heap_matrix.cpp,0x2e90
+Vector3::operator-,0.059997,0.059997,0.0,0.0,libedbdgeometry.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0x24b40
+geometry::supportMapping,0.055999,0.055999,0.0,0.0,libedbdgeometry.so,"geometry::supportMapping(Vector3 const&, geometry::types::convexPolyhedron_s const&)",support_functions.cpp,0x24a70
+geometry::triangle::voronoiRegionToPoint,0.044006,0.044006,0.0,0.0,libedbdgeometry.so,"geometry::triangle::voronoiRegionToPoint(Vector3 const&, Vector3 const&, Vector3 const&, Vector3 const&)",triangle.cpp,0x26630
+Vector3::dot,0.043997,0.043997,0.0,0.0,libedbdgeometry.so,Vector3::dot(Vector3 const&) const,vector3.hpp,0x24b5c
+fzx::constraints::collision::narrowPhase,0.036004,0.036004,0.0,0.0,libconstraint_collision.so,"fzx::constraints::collision::narrowPhase(trecs::Allocator&, std::vector<fzx::types::collisionCandidate_s, std::allocator<fzx::types::collisionCandidate_s>> const&)",narrowphase.cpp,0x7970
+geometry::gjk::minNormPointAndMinSimplex,0.031999,0.031999,0.0,0.0,libedbdgeometry.so,"geometry::gjk::minNormPointAndMinSimplex(geometry::types::minkowskiDiffSimplex_s const&, Vector3 const&)",gjk.cpp,0x8ea0
+Vector3::Initialize,0.031996,0.031996,0.0,0.0,libedbdgeometry.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x1ef08
+HeapMatrix::index,0.028004,0.028004,0.0,0.0,libedbdmath.so,"HeapMatrix::index(unsigned int, unsigned int) const",heap_matrix.hpp,0x2f00
+HeapMatrix::operator(),0.028003,0.028003,0.0,0.0,libedbdmath.so,"HeapMatrix::operator()(unsigned int, unsigned int)",heap_matrix.cpp,0x2f00
+"std::find<std::_Rb_tree_const_iterator<int>, int>",0.027998,0.027998,0.0,0.0,libconstraints.so,"std::find<std::_Rb_tree_const_iterator<int>, int>(std::_Rb_tree_const_iterator<int>, std::_Rb_tree_const_iterator<int>, int const&)",stl_algo.h,0x9494
+Matrix33::operator*,0.027997,0.027997,0.0,0.0,libedbdgeometry.so,Matrix33::operator*(Vector3 const&) const,matrix33.hpp,0x4f70
+std::min<float>,0.027990,0.027990,0.0,0.0,libedbdmath.so,"std::min<float>(float const&, float const&)",stl_algobase.h,0x3bff
+geometry::aabbHull,0.024005,0.024005,0.0,0.0,libedbdgeometry.so,"geometry::aabbHull(Vector3 const&, Matrix33 const&, geometry::types::convexPolyhedron_s const&, geometry::types::aabb_s&)",aabb_hull.cpp,0x4e40
+std::max<float>,0.024002,0.024002,0.0,0.0,libedbdmath.so,"std::max<float>(float const&, float const&)",stl_algobase.h,0x3bf6
+fzx::constraints::revolute_joint::findRevoluteJoints,0.024000,0.024000,0.0,0.0,libconstraint_revolute_joint.so,"fzx::constraints::revolute_joint::findRevoluteJoints(trecs::Allocator&, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>>&)",revolute_joint.cpp,0x3350
+Vector3::dot,0.023999,0.023999,0.0,0.0,libconstraint_collision.so,Vector3::dot(Vector3 const&) const,vector3.hpp,0x69c0
+"std::set<int, std::less<int>, std::allocator<int>>::insert",0.023999,0.023999,0.0,0.0,libconstraints.so,"std::set<int, std::less<int>, std::allocator<int>>::insert(int const&)",stl_set.h,0x9570
+trecs::Allocator::getComponent<fzx::types::rigidBody_s>,0.020007,0.020007,0.0,0.0,libconstraints.so,trecs::Allocator::getComponent<fzx::types::rigidBody_s>(unsigned int),allocator.hpp,0xa41a
+Vector3::Initialize,0.020004,0.020004,0.0,0.0,libedbdgeometry.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x5ad9
+"std::find<__gnu_cxx::__normal_iterator<fzx::types::constraintGraphEdge_s*, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>>>, fzx::types::constraintGraphEdge_s>",0.020002,0.020002,0.0,0.0,libconstraints.so,"std::find<__gnu_cxx::__normal_iterator<fzx::types::constraintGraphEdge_s*, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>>>, fzx::types::constraintGraphEdge_s>(__gnu_cxx::__normal_iterator<fzx::types::constraintGraphEdge_s*, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>>>, __gnu_cxx::__normal_iterator<fzx::types::constraintGraphEdge_s*, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>>>, fzx::types::constraintGraphEdge_s const&)",stl_algo.h,0x9458
+Vector3::Vector3,0.020002,0.020002,0.0,0.0,libedbdgeometry.so,Vector3::Vector3(Vector3 const&),vector3.hpp,0x1f270
+func@0x1c50,0.020001,0.020001,0.0,0.0,libedbdmath.so,func@0x1c50,[Unknown],0x1c50
+HeapMatrix::transpose,0.020000,0.020000,0.0,0.0,libedbdmath.so,HeapMatrix::transpose(void) const,heap_matrix.cpp,0x3030
+Vector3::magnitudeSquared,0.019997,0.019997,0.0,0.0,libedbdgeometry.so,Vector3::magnitudeSquared(void) const,vector3.hpp,0x24a84
+geometry::segment::voronoiRegionToPoint,0.019997,0.019997,0.0,0.0,libedbdgeometry.so,"geometry::segment::voronoiRegionToPoint(Vector3 const&, Vector3 const&, Vector3 const&)",segment.cpp,0x22650
+Vector3::operator-,0.019982,0.019982,0.0,0.0,libedbdgeometry.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0x24ac5
+Matrix33::determinant,0.018001,0.018001,0.0,0.0,libbodydynamics.so,Matrix33::determinant(void) const,matrix33.hpp,0x14f4
+geometry::polygon::orderConvexVerts,0.015997,0.015997,0.0,0.0,libedbdgeometry.so,geometry::polygon::orderConvexVerts(geometry::types::polygon50_s&),polygon.cpp,0x1eea0
+Vector3::crossProduct,0.015997,0.015997,0.0,0.0,libedbdgeometry.so,Vector3::crossProduct(Vector3 const&) const,vector3.hpp,0x1e05a
+Vector3::operator-,0.015970,0.015970,0.0,0.0,libedbdgeometry.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0x26962
+Vector3::operator=,0.012045,0.012045,0.0,0.0,libedbdgeometry.so,Vector3::operator=(Vector3 const&),vector3.hpp,0x9134
+geometry::gjk::minNormPointAndMinSimplex,0.012035,0.012035,0.0,0.0,libedbdgeometry.so,geometry::gjk::minNormPointAndMinSimplex(geometry::types::minkowskiDiffSimplex_s const&),gjk.cpp,0x9620
+Vector3::Initialize,0.012016,0.012016,0.0,0.0,libconstraint_collision.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x8bf4
+geometry::polygon::clipSutherlandHodgman,0.012015,0.012015,0.0,0.0,libedbdgeometry.so,"geometry::polygon::clipSutherlandHodgman(geometry::types::polygon50_s const&, geometry::types::polygon50_s const&, geometry::types::polygon50_s&)",polygon.cpp,0x1f080
+fzx::Handle::getBody,0.012007,0.012007,0.0,0.0,libphysics.so,fzx::Handle::getBody(int),fzx_handle.cpp,0x79a0
+fzx::getTypeId,0.012006,0.012006,0.0,0.0,liballocator.so,fzx::getTypeId(fzx::types::rigidBody_s const*),component_manager.cpp,0x12150
+fzx::constraints::iterative_solver::applyConstraints,0.012005,0.012005,0.0,0.0,libconstraints.so,"fzx::constraints::iterative_solver::applyConstraints(trecs::Allocator&, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>> const&)",iterative_constraint_solver.cpp,0xd2a0
+Vector3::operator-,0.012005,0.012005,0.0,0.0,libedbdgeometry.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0x268f1
+std::atan2,0.012004,0.012004,0.0,0.0,libedbdgeometry.so,"std::atan2(float, float)",cmath,0x1ef90
+func@0x4700,0.012003,0.012003,0.0,0.0,libedbdgeometry.so,func@0x4700,[Unknown],0x4700
+fzx::constraints::collision::snapPointToPlane,0.012003,0.012003,0.0,0.0,libconstraint_collision.so,"fzx::constraints::collision::snapPointToPlane(Vector3 const&, Vector3 const&, Vector3 const&)",narrowphase.cpp,0x5a30
+Vector3::Initialize,0.012002,0.012002,0.0,0.0,libedbdgeometry.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x25508
+std::sqrt,0.012002,0.012002,0.0,0.0,libedbdmath.so,std::sqrt(float),cmath,0x29f0
+Vector3::operator+,0.012002,0.012002,0.0,0.0,libbodydynamics.so,Vector3::operator+(Vector3 const&) const,vector3.hpp,0x256d
+fzx::types::constraintGraphEdge_s::operator==,0.012002,0.012002,0.0,0.0,libconstraints.so,fzx::types::constraintGraphEdge_s::operator==(fzx::types::constraintGraphEdge_s const&) const,fzx_types.hpp,0x9ff0
+fzx::forces::calculateForces,0.012002,0.012002,0.0,0.0,libforces.so,fzx::forces::calculateForces(trecs::Allocator&),force_calculator.cpp,0x1130
+Vector3::Initialize,0.012001,0.012001,0.0,0.0,libconstraint_collision.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x8d8c
+"std::find<std::_Rb_tree_const_iterator<int>, int>",0.012001,0.012001,0.0,0.0,libconstraints.so,"std::find<std::_Rb_tree_const_iterator<int>, int>(std::_Rb_tree_const_iterator<int>, std::_Rb_tree_const_iterator<int>, int const&)",stl_algo.h,0x94d1
+Quaternion::operator/,0.012001,0.012001,0.0,0.0,libconstraint_collision.so,Quaternion::operator/(float) const,quaternion.hpp,0x2ac3
+func@0x1ce0,0.012001,0.012001,0.0,0.0,libedbdmath.so,func@0x1ce0,[Unknown],0x1ce0
+geometry::mesh::TriangleGraphMesh<(unsigned int)50>::push_back,0.012001,0.012001,0.0,0.0,libconstraint_collision.so,geometry::mesh::TriangleGraphMesh<(unsigned int)50>::push_back(geometry::types::leanNeighborTriangle_s const&),triangle_graph_mesh.hpp,0x6598
+Matrix33::operator*,0.012001,0.012001,0.0,0.0,libedbdgeometry.so,Matrix33::operator*(Vector3 const&) const,matrix33.hpp,0x75e3
+Vector3::operator-,0.012001,0.012001,0.0,0.0,libedbdgeometry.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0xa39e
+"std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int>>::insert",0.012001,0.012001,0.0,0.0,libconstraints.so,"std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int>>::insert(unsigned int&&)",stl_set.h,0xd173
+Vector3::Initialize,0.012000,0.012000,0.0,0.0,libedbdgeometry.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x1f855
+"std::map<unsigned int, unsigned long, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned long>>>::at",0.012000,0.012000,0.0,0.0,libconstraint_collision.so,"std::map<unsigned int, unsigned long, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned long>>>::at(unsigned int const&)",stl_map.h,0x7c69
+Matrix33::Matrix33,0.012000,0.012000,0.0,0.0,libconstraint_collision.so,Matrix33::Matrix33(Matrix33 const&),matrix33.hpp,0x4141
+"std::set<int, std::less<int>, std::allocator<int>>::end",0.012000,0.012000,0.0,0.0,libconstraints.so,"std::set<int, std::less<int>, std::allocator<int>>::end(void) const",stl_set.h,0x9488
+Vector3::operator+=,0.012000,0.012000,0.0,0.0,libbodydynamics.so,Vector3::operator+=(Vector3 const&),vector3.hpp,0x3137
+trecs::ComponentManager::retrievePoolByType<fzx::types::rigidBody_s>,0.012000,0.012000,0.0,0.0,libconstraint_collision.so,trecs::ComponentManager::retrievePoolByType<fzx::types::rigidBody_s>(void),component_manager.hpp,0x33a3
+HeapMatrix::~HeapMatrix,0.012000,0.012000,0.0,0.0,libedbdmath.so,HeapMatrix::~HeapMatrix(void),heap_matrix.cpp,0x2e70
+fzx::constraints::iterative_solver::calculateJacobian,0.012000,0.012000,0.0,0.0,libconstraints.so,"fzx::constraints::iterative_solver::calculateJacobian(trecs::Allocator&, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>> const&, std::vector<unsigned int, std::allocator<unsigned int>> const&, HeapMatrix&)",iterative_constraint_solver.cpp,0xbe30
+cheaterCalcNormal,0.012000,0.012000,0.0,0.0,libedbdgeometry.so,"cheaterCalcNormal(Vector3 const*, Vector3 const&, Vector3&)",mesh_ops.cpp,0x1e010
+fzx::rb::applyAngularImpulse,0.012000,0.012000,0.0,0.0,libbodydynamics.so,"fzx::rb::applyAngularImpulse(fzx::types::rigidBody_s&, Vector3 const&, fzx::types::frame::frame)",rigidbody.cpp,0x3b80
+Matrix33::operator/=,0.012000,0.012000,0.0,0.0,libbodydynamics.so,Matrix33::operator/=(float const&),matrix33.hpp,0x4312
+fzx::constraints::iterative_solver::calculatePgsA,0.012000,0.012000,0.0,0.0,libconstraints.so,"fzx::constraints::iterative_solver::calculatePgsA(HeapMatrix const&, HeapMatrix const&, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>> const&, std::vector<unsigned int, std::allocator<unsigned int>> const&, HeapMatrix&)",iterative_constraint_solver.cpp,0xce80
+HeapMatrix::operator*,0.012000,0.012000,0.0,0.0,libedbdmath.so,HeapMatrix::operator*(float) const,heap_matrix.cpp,0x3560
+geometry::gjk::addVertexToSimplex,0.011999,0.011999,0.0,0.0,libedbdgeometry.so,"geometry::gjk::addVertexToSimplex(int, int, Vector3 const&, Vector3 const&, Vector3 const&, geometry::types::minkowskiDiffSimplex_s&)",gjk.cpp,0x93c0
+"std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string",0.011999,0.011999,0.0,0.0,libedbdlogger.so,"std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(char const*, std::allocator<char> const&)",basic_string.h,0x551a
+trecs::ComponentManager::retrievePoolByType<fzx::types::rigidBody_s>,0.011999,0.011999,0.0,0.0,libphysics.so,trecs::ComponentManager::retrievePoolByType<fzx::types::rigidBody_s>(void),component_manager.hpp,0xb4f9
+fzx::constraints::balljoint::findBalljoints,0.011999,0.011999,0.0,0.0,libconstraint_balljoint.so,"fzx::constraints::balljoint::findBalljoints(trecs::Allocator&, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>>&)",balljoint.cpp,0x2bc0
+"std::map<unsigned int, unsigned long, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned long>>>::at",0.011999,0.011999,0.0,0.0,libconstraint_friction.so,"std::map<unsigned int, unsigned long, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned long>>>::at(unsigned int const&)",stl_map.h,0x2299
+Matrix33::transpose,0.011999,0.011999,0.0,0.0,libconstraint_collision.so,Matrix33::transpose(void) const,matrix33.hpp,0x45c6
+Vector3::Initialize,0.011999,0.011999,0.0,0.0,libconstraint_collision.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x41cf
+fzx::types::constraintGraphEdge_s::operator==,0.011999,0.011999,0.0,0.0,libconstraints.so,fzx::types::constraintGraphEdge_s::operator==(fzx::types::constraintGraphEdge_s const&) const,fzx_types.hpp,0x9fdc
+Vector3::Initialize,0.011999,0.011999,0.0,0.0,libconstraint_collision.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x8931
+Vector3::dot,0.011998,0.011998,0.0,0.0,libedbdgeometry.so,Vector3::dot(Vector3 const&) const,vector3.hpp,0xa6b7
+Vector3::operator-,0.011998,0.011998,0.0,0.0,libedbdgeometry.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0x25759
+Quaternion::magnitude,0.011998,0.011998,0.0,0.0,libconstraint_balljoint.so,Quaternion::magnitude(void) const,quaternion.hpp,0x2690
+geometry::tetrahedron::voronoiRegionToPoint,0.011998,0.011998,0.0,0.0,libedbdgeometry.so,"geometry::tetrahedron::voronoiRegionToPoint(Vector3 const&, Vector3 const&, Vector3 const&, Vector3 const&, Vector3 const&)",tetrahedron.cpp,0x25380
+func@0x4a40,0.011998,0.011998,0.0,0.0,libconstraints.so,func@0x4a40,[Unknown],0x4a40
+Matrix33::operator*,0.011997,0.011997,0.0,0.0,libedbdgeometry.so,Matrix33::operator*(Vector3 const&) const,matrix33.hpp,0x1f71d
+Vector3::operator-,0.008011,0.008011,0.0,0.0,libedbdgeometry.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0x266ff
+Matrix33::operator*,0.008009,0.008009,0.0,0.0,libconstraint_collision.so,Matrix33::operator*(Vector3 const&) const,matrix33.hpp,0x8e72
+std::isnan,0.008002,0.008002,0.0,0.0,libconstraints.so,std::isnan(float),cmath,0xc164
+trecs::Allocator::getComponent<geometry::types::aabb_s>,0.008002,0.008002,0.0,0.0,libconstraint_collision.so,trecs::Allocator::getComponent<geometry::types::aabb_s>(unsigned int),allocator.hpp,0x302f
+func@0x2280,0.008002,0.008002,0.0,0.0,libconstraint_collision.so,func@0x2280,[Unknown],0x2280
+Vector3::Initialize,0.008002,0.008002,0.0,0.0,libedbdgeometry.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x25bb0
+Vector3::Initialize,0.008002,0.008002,0.0,0.0,libedbdgeometry.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x9379
+Quaternion::operator/,0.008002,0.008002,0.0,0.0,libconstraint_collision.so,Quaternion::operator/(float) const,quaternion.hpp,0x3632
+fzx::constraints::iterative_solver::calculateLambdaBounds,0.008001,0.008001,0.0,0.0,libconstraints.so,"fzx::constraints::iterative_solver::calculateLambdaBounds(trecs::Allocator&, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>> const&, float, HeapMatrix&)",iterative_constraint_solver.cpp,0xc870
+Vector3::operator-,0.008001,0.008001,0.0,0.0,libedbdgeometry.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0x255fb
+Matrix33::transpose,0.008001,0.008001,0.0,0.0,libconstraints.so,Matrix33::transpose(void) const,matrix33.hpp,0xb8fe
+"std::map<int, trecs::PoolAllocatorInterface*, std::less<int>, std::allocator<std::pair<int const, trecs::PoolAllocatorInterface*>>>::at",0.008001,0.008001,0.0,0.0,libconstraint_collision.so,"std::map<int, trecs::PoolAllocatorInterface*, std::less<int>, std::allocator<std::pair<int const, trecs::PoolAllocatorInterface*>>>::at(int const&)",stl_map.h,0x7b21
+trecs::EntityManager::getSignature,0.008001,0.008001,0.0,0.0,liballocator.so,trecs::EntityManager::getSignature(unsigned int) const,entity_manager.cpp,0x14330
+"std::map<int, trecs::PoolAllocatorInterface*, std::less<int>, std::allocator<std::pair<int const, trecs::PoolAllocatorInterface*>>>::at",0.008000,0.008000,0.0,0.0,libconstraint_collision.so,"std::map<int, trecs::PoolAllocatorInterface*, std::less<int>, std::allocator<std::pair<int const, trecs::PoolAllocatorInterface*>>>::at(int const&)",stl_map.h,0x3077
+std::sort<unsigned int*>,0.008000,0.008000,0.0,0.0,libconstraint_collision.so,"std::sort<unsigned int*>(unsigned int*, unsigned int*)",stl_algo.h,0x60f4
+Vector3::operator-,0.008000,0.008000,0.0,0.0,libconstraint_collision.so,Vector3::operator-(Vector3 const&) const,vector3.hpp,0x90e0
+Matrix33::transpose,0.008000,0.008000,0.0,0.0,libconstraint_collision.so,Matrix33::transpose(void) const,matrix33.hpp,0x8478
+"geometry::gjk::alg<geometry::types::convexPolyhedron_s, geometry::types::convexPolyhedron_s>",0.008000,0.008000,0.0,0.0,libconstraint_collision.so,"geometry::gjk::alg<geometry::types::convexPolyhedron_s, geometry::types::convexPolyhedron_s>(Matrix33 const&, Matrix33 const&, Vector3 const&, Vector3 const&, geometry::types::convexPolyhedron_s const&, geometry::types::convexPolyhedron_s const&)",gjk.hpp,0x82e0
+Vector3::magnitudeSquared,0.008000,0.008000,0.0,0.0,libedbdgeometry.so,Vector3::magnitudeSquared(void) const,vector3.hpp,0xa4f7
+geometry::types::minkowskiDiffSimplex_s::operator=,0.008000,0.008000,0.0,0.0,libconstraint_collision.so,geometry::types::minkowskiDiffSimplex_s::operator=(geometry::types::minkowskiDiffSimplex_s const&),geometry_types.hpp,0x8cbc
+Vector3::Vector3,0.008000,0.008000,0.0,0.0,libbodydynamics.so,Vector3::Vector3(Vector3 const&),vector3.hpp,0x118b
+Vector3::operator=,0.008000,0.008000,0.0,0.0,libedbdgeometry.so,Vector3::operator=(Vector3 const&),vector3.hpp,0x24b82
+fzx::constraints::collision::transformPolygonBodyToWorld,0.007999,0.007999,0.0,0.0,libconstraint_collision.so,"fzx::constraints::collision::transformPolygonBodyToWorld(Matrix33 const&, Vector3 const&, geometry::types::polygon50_s&)",narrowphase.cpp,0x57c0
+func@0x22a0,0.007999,0.007999,0.0,0.0,libconstraint_collision.so,func@0x22a0,[Unknown],0x22a0
+__GI_,0.007999,0.007999,0.0,0.0,libc.so.6,"__GI_(long, int, bool, char)",malloc.c,0x97910
+"std::vector<fzx::types::collisionCandidate_s, std::allocator<fzx::types::collisionCandidate_s>>::push_back",0.007999,0.007999,0.0,0.0,libconstraint_collision.so,"std::vector<fzx::types::collisionCandidate_s, std::allocator<fzx::types::collisionCandidate_s>>::push_back(fzx::types::collisionCandidate_s const&)",stl_vector.h,0x37cc
+Vector3::operator+,0.007999,0.007999,0.0,0.0,libedbdgeometry.so,Vector3::operator+(Vector3 const&) const,vector3.hpp,0x7419
+Vector3::Initialize,0.007999,0.007999,0.0,0.0,libconstraint_collision.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x867c
+Vector3::magnitudeSquared,0.007999,0.007999,0.0,0.0,libedbdgeometry.so,Vector3::magnitudeSquared(void) const,vector3.hpp,0x26462
+trecs::EntityManager::entityActive,0.007999,0.007999,0.0,0.0,liballocator.so,trecs::EntityManager::entityActive(unsigned int),entity_manager.cpp,0x13fd0
+Vector3::Initialize,0.007999,0.007999,0.0,0.0,libedbdgeometry.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x752e
+fzx::constraints::balljoint::evaluateConstraint,0.007999,0.007999,0.0,0.0,libconstraint_balljoint.so,"fzx::constraints::balljoint::evaluateConstraint(fzx::types::rigidBody_s const&, fzx::types::rigidBody_s const&, fzx::types::constraintBalljoint_s const&)",balljoint.cpp,0x10f0
+Vector3::Initialize,0.007998,0.007998,0.0,0.0,libedbdmath.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x52bd
+slingshot::api::loop,0.007998,0.007998,0.0,0.0,libedbdfzx.so,slingshot::api::loop(void),edbdfzx.cpp,0x42a0
+fzx::constraints::iterative_solver::getBodyIndex,0.007998,0.007998,0.0,0.0,libconstraints.so,"fzx::constraints::iterative_solver::getBodyIndex(std::vector<unsigned int, std::allocator<unsigned int>> const&, unsigned int)",iterative_constraint_solver.cpp,0xa360
+Vector3::dot,0.007998,0.007998,0.0,0.0,libedbdgeometry.so,Vector3::dot(Vector3 const&) const,vector3.hpp,0x26786
+baryCoords,0.007998,0.007998,0.0,0.0,libedbdgeometry.so,baryCoords,triangle.cpp,0x26462
+func@0x4b10,0.007998,0.007998,0.0,0.0,libconstraints.so,func@0x4b10,[Unknown],0x4b10
+__memmove_avx_unaligned_erms,0.007998,0.007998,0.0,0.0,libc.so.6,__memmove_avx_unaligned_erms,memmove-vec-unaligned-erms.S,0x18e990
+"std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int>>::insert",0.007997,0.007997,0.0,0.0,libconstraints.so,"std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int>>::insert(unsigned int&&)",stl_set.h,0xd11f
+Vector3::Initialize,0.007997,0.007997,0.0,0.0,libedbdgeometry.so,"Vector3::Initialize(float, float, float)",vector3.hpp,0x8f5c
+Vector3::dot,0.007996,0.007996,0.0,0.0,libedbdgeometry.so,Vector3::dot(Vector3 const&) const,vector3.hpp,0x26a67
+Matrix33::operator*,0.007996,0.007996,0.0,0.0,libedbdgeometry.so,Matrix33::operator*(Vector3 const&) const,matrix33.hpp,0x1fc20
+fzx::constraints::iterative_solver::evaluateBaumgartes,0.007996,0.007996,0.0,0.0,libconstraints.so,"fzx::constraints::iterative_solver::evaluateBaumgartes(trecs::Allocator&, std::vector<fzx::types::constraintGraphEdge_s, std::allocator<fzx::types::constraintGraphEdge_s>> const&, float, HeapMatrix&)",iterative_constraint_solver.cpp,0xa3b0
+fzx::constraints::collision::calculateContactManifold,0.007993,0.007993,0.0,0.0,libconstraint_collision.so,"fzx::constraints::collision::calculateContactManifold(Vector3 const&, Matrix33 const&, Matrix33 const&, geometry::types::meshConfig_s const&, geometry::types::meshConfig_s const&, geometry::types::convexPolyhedron_s const&, geometry::types::convexPolyhedron_s const&, fzx::types::collisionCandidate_s const&, geometry::types::epa::result_s const&, std::vector<fzx::types::contact_s, std::allocator<fzx::types::contact_s>>&)",narrowphase.cpp,0x6730
+Quaternion::rotationMatrix,0.007986,0.007986,0.0,0.0,libconstraint_balljoint.so,Quaternion::rotationMatrix(void) const,quaternion.hpp,0x13b0

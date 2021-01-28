@@ -1,0 +1,5 @@
+add_subdirectory( nary_tree_tests )
+add_subdirectory( connected_component_tests )
+add_subdirectory( connected_components_decomposition_tests )
+add_subdirectory( sequential_relabel_tests )
+add_subdirectory( subgraph_tests )

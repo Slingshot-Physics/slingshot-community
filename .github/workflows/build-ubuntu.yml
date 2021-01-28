@@ -1,0 +1,278 @@
+# Builds the project in multiple modes and runs all of the existing unit tests.
+
+name: "Build-Run-Ubuntu"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+# Note that the container created by workflows maps part of the local volume to
+# the container. Specifically ~/actions-runner/_work. Successive jobs can reuse
+# the output of their predecessors without having to generate artifacts.
+jobs:
+  build-debug-all:
+    runs-on: [self-hosted, linux]
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: build-ubuntu-workflow
+          token: ${{ secrets.PIPELINE_PAT }}
+          submodules: true
+
+      - name: Where the hell am I
+        run: |
+          pwd
+          ls -lah
+
+      - name: Build in debug
+        run: |
+          cd build-ubuntu-workflow
+          chmod +x makeme.sh
+          ./makeme.sh
+
+  build-no-viz-debug:
+    needs: build-debug-all
+    runs-on: [self-hosted, linux]
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: build-ubuntu-workflow
+          token: ${{ secrets.PIPELINE_PAT }}
+          submodules: true
+
+      - name: Build in debug mode
+        run: |
+          cd build-ubuntu-workflow
+          chmod +x makeme.sh
+          ./makeme.sh -DBUILD_VIZ=0 -DBUILD_TESTS=0
+
+  run-no-viz-debug:
+    needs: build-no-viz-debug
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: build-ubuntu-workflow
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario_filename: [
+          ../demos/scenarios/stack_smash_scenario.json,
+          ../demos/scenarios/box_stack_scenario.json,
+          ../demos/scenarios/big_fall_scenario.json,
+          ../demos/scenarios/big_fall_scenario.json,
+          ../demos/scenarios/big_box_stack_scenario.json,
+        ]
+    steps:
+      - name: Run no-viz on ${{ matrix.scenario_filename }}
+        run: |
+          cd build
+          ./bin/api_no_viz ${{ matrix.scenario_filename }}
+
+  run-no-viz-debug-auto-gen:
+    needs: build-no-viz-debug
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: build-ubuntu-workflow
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    steps:
+      - name: Generate random scenario 16 4 1
+        run: |
+          python3 ./scripts/scenario_generator.py --scenario_filename "scenario_16_4_1.json" --num_moving_bodies 16 --num_static_bodies 4
+
+      - name: Run no-viz on auto-generated scenario
+        run: |
+          cd build
+          ./bin/api_no_viz ../scenario_16_4_1.json
+
+  build-no-viz-release:
+    needs: run-no-viz-debug
+    runs-on: [self-hosted, linux]
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: build-ubuntu-workflow
+          token: ${{ secrets.PIPELINE_PAT }}
+          submodules: true
+
+      - name: Set script as executable
+        run: |
+          cd build-ubuntu-workflow
+          chmod +x makeme.sh
+          ./makeme.sh -DBUILD_VIZ=0 -DCMAKE_BUILD_TYPE=release -DOPTIMIZATION_OPT=o3
+
+  find-catch2-tests:
+    needs: build-no-viz-release
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: build-ubuntu-workflow
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    steps:
+      - name: Find all catch2 tests in build/exec_tests folder
+        id: test_finder
+        run: |
+          exec_test_names=$( ls build/exec_tests )
+          json_test_names=
+          for e in ${exec_test_names}; do json_test_names=$json_test_names\"${e}\"\ ;done
+          echo "json test names: ${json_test_names}"
+          json_test_names=$( echo $json_test_names | tr ' ' ,)
+          echo "json test names: ${json_test_names}"
+          json_test_names=$( echo [ $json_test_names ] )
+          echo "json test names: ${json_test_names}"
+          echo "EXEC_TESTS_STR=${json_test_names}" >> $GITHUB_OUTPUT
+
+      - name: Set date string
+        id: date_step
+        run: |
+          date_str=$(TZ='America/New_York' date +"%Y-%m-%d-%H-%M-%S")
+          echo "DATE_STR=${date_str}" >> $GITHUB_OUTPUT
+
+    outputs:
+      EXEC_TESTS_STR: ${{ steps.test_finder.outputs.EXEC_TESTS_STR }}
+      BUILD_DATE_STR: ${{ steps.date_step.outputs.DATE_STR }}
+
+  run-catch2-tests:
+    needs: find-catch2-tests
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: build-ubuntu-workflow
+    strategy:
+      fail-fast: false
+      matrix:
+        test_name: ${{fromJson(needs.find-catch2-tests.outputs.EXEC_TESTS_STR)}}
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    steps:
+      - name: Look at the current directory
+        run: |
+          pwd
+          ls -lah
+          ls build
+
+      - name: Check if build and tests folders exist
+        run: |
+          if [ -d build/exec_tests ]; then echo "Test folder found, running tests"; else exit 1; fi
+
+      - name: Run ${{ matrix.test_name }}
+        run: |
+          cd build
+          test_dir=test_output
+          mkdir -p $test_dir
+          echo Running test: ${{ matrix.test_name }}
+          ./exec_tests/${{ matrix.test_name }}
+
+      - name: Move and rename any JSON files from failed test to output folder
+        if: failure()
+        run: |
+          cd build
+          test_dir=test_output
+          for f in $( ls | grep json )
+          do
+            echo Moving $f to $test_dir/${{ matrix.test_name }}_$f
+            mv $f $test_dir/${{ matrix.test_name }}_$f
+          done
+
+      - name: Delete any straggling JSON files
+        run: |
+          cd build
+          for f in $( ls | grep json )
+          do
+            rm $f
+          done
+
+    outputs:
+      BUILD_DATE_STR: ${{ needs.find-catch2-tests.outputs.BUILD_DATE_STR }}
+
+  upload-test-output:
+    needs: run-catch2-tests
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: build-ubuntu-workflow
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    if: always()
+    steps:
+      - name: Upload test output to S3
+        run: |
+          cd build/test_output
+          echo "Looking at files $( ls | grep json )"
+          date_str=${{ needs.run-catch2-tests.outputs.BUILD_DATE_STR }}
+          for f in $( ls | grep json )
+          do
+            filename=$f
+            python3 ../../scripts/upload_artifacts.py ${{secrets.AWS_ACCESS_KEY_ID}} ${{secrets.AWS_SECRET_ACCESS_KEY}} ${{vars.ARTIFACT_BUCKET_NAME}} $filename ${GITHUB_REF_NAME} test-configs ${date_str}
+          done
+
+  run-no-viz-release-scenarios:
+    needs: build-no-viz-release
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: build-ubuntu-workflow
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario_filename: [
+          ../demos/scenarios/stack_smash_scenario.json,
+          ../demos/scenarios/box_stack_scenario.json,
+          ../demos/scenarios/big_fall_scenario.json,
+          ../demos/scenarios/big_box_stack_scenario.json,
+        ]
+    steps:
+      - name: Run no-viz on ${{ matrix.scenario_filename }}
+        run: |
+          cd build
+          ./bin/api_no_viz ${{ matrix.scenario_filename }}
+
+  build-cuda-debug:
+    runs-on: [self-hosted, linux, cuda]
+    container:
+      image: ${{vars.CUDA_IMAGE}}
+      options: "--gpus all"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: build-ubuntu-workflow
+          token: ${{ secrets.PIPELINE_PAT }}
+          submodules: true
+
+      - name: Where the hell am I
+        run: |
+          pwd
+          ls -lah
+
+      - name: Build repo with CUDA enabled
+        run: |
+          cd build-ubuntu-workflow
+          chmod +x makeme.sh
+          ./makeme.sh -DBUILD_CUDA=1 -DBUILD_TESTS=0

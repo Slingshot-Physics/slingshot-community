@@ -1,0 +1,7 @@
+add_subdirectory( json_array_tests )
+add_subdirectory( json_deserialize_tests )
+# add_subdirectory( json_object_tests )
+add_subdirectory( json_pointer_tests )
+# add_subdirectory( json_string_tests )
+add_subdirectory( json_value_tests )
+add_subdirectory( json_verify_tests )

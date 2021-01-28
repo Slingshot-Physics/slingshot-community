@@ -1,0 +1,110 @@
+# Builds the project in release with debug and runs the profiler on selected
+# scenarios.
+
+name: "Profile-Ubuntu"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: 'profile-${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+# Note that the container created by workflows maps part of the local volume to
+# the container. Specifically ~/actions-runner/_work. Successive jobs can reuse
+# the output of their predecessors without having to generate artifacts.
+jobs:
+  build-release-debug-symbols:
+    runs-on: [self-hosted, linux]
+    container:
+      image: ${{vars.PROFILE_IMAGE}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: profile-workflow
+          token: ${{ secrets.PIPELINE_PAT }}
+          submodules: true
+
+      - name: Where the hell am I
+        run: |
+          pwd
+          ls -lah
+          ls profile-workflow
+
+      - name: Build in release with debug symbols
+        run: |
+          cd profile-workflow
+          mkdir -p build/release_debug
+          cd build/release_debug
+          cmake -DBUILD_VIZ=0 -DBUILD_TESTS=0 -DOPTIMIZATION_OPT=o2 -DCMAKE_BUILD_TYPE=RelWithDebInfo ../..
+          make -j4
+
+  run-profile:
+    needs: build-release-debug-symbols
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: profile-workflow
+    container:
+      image: ${{vars.PROFILE_IMAGE}}
+      options: "--cap-add=SYS_ADMIN --cap-add=SYS_PTRACE"
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario_name: [
+          ragdoll_floor,
+          box_stack_scenario,
+          big_fall_scenario,
+          big_box_stack_scenario,
+          piston_table,
+          piston_table_collisions
+        ]
+    steps:
+      - name: Run profiler on ${{ matrix.scenario_name }}
+        run: |
+          scenario=${{ matrix.scenario_name }}
+          echo "pwd"
+          pwd
+          echo "ls"
+          ls
+          echo "ls demos/api"
+          ls demos/api
+          echo "ls build"
+          ls build
+          echo "ls build/release_debug/bin"
+          ls build/release_debug/bin
+          vtune -collect hotspots -result-dir=./profiles/${scenario} --app-working-dir=$( pwd )/build/release_debug -- $( pwd )/build/release_debug/bin/api_no_viz ../../demos/scenarios/${scenario}.json
+          vtune -report hotspots -r ./profiles/${scenario} -format=csv -csv-delimiter comma > profiles/${scenario}_current.csv
+
+  collect-profiler-output:
+    needs: run-profile
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: profile-workflow
+    container:
+      image: ${{vars.PROFILE_IMAGE}}
+    steps:
+      - name: Update profiler output
+        run: |
+          echo on branch ${GITHUB_REF_NAME}
+          date_str=$(TZ='America/New_York' date +"%Y-%m-%d-%H-%M-%S")
+          for f in $( ls ./profiles/*.csv ); do
+            echo parsing file $f and generating plot
+            python3 ./scripts/plot_vtune_profile.py $f
+            echo uploading file $f to S3
+            python3 ./scripts/upload_artifacts.py ${{secrets.AWS_ACCESS_KEY_ID}} ${{secrets.AWS_SECRET_ACCESS_KEY}} ${{vars.ARTIFACT_BUCKET_NAME}} $f ${GITHUB_REF_NAME} vtune-profile ${date_str}
+          done
+          for f in $( ls ./profiles/*.png ); do
+            echo uploading file $f to S3
+            python3 ./scripts/upload_artifacts.py ${{secrets.AWS_ACCESS_KEY_ID}} ${{secrets.AWS_SECRET_ACCESS_KEY}} ${{vars.ARTIFACT_BUCKET_NAME}} $f ${GITHUB_REF_NAME} vtune-profile ${date_str}
+          done

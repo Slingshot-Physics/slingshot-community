@@ -1,0 +1,20 @@
+[submodule "viz/glad_gt_3_3"]
+	path = viz/glad
+	url = https://github.com/therealjtgill/glad_gt_3_3.git
+[submodule "viz/glfw"]
+	path = viz/glfw
+	url = https://github.com/glfw/glfw
+
+[submodule "viz/glm"]
+	path = viz/glm
+	url = https://github.com/therealjtgill/glm
+[submodule "viz/imgui"]
+	path = viz/imgui
+	url = https://github.com/therealjtgill/imgui
+[submodule "tests/Catch2_header_only"]
+	path = tests/exec_tests/Catch2_header_only
+	url = https://github.com/therealjtgill/Catch2_header_only
+[submodule "common/trecs"]
+	path = common/trecs
+	url = git@github.com:therealjtgill/trecs.git
+	branch = main

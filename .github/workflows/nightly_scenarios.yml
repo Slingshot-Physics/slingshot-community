@@ -1,0 +1,92 @@
+# Builds the project in viz and no-viz and runs random scenarios nightly.
+
+name: "Nightly-Run-Ubuntu"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+  schedule:
+    - cron: '15 23 * * *'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+# Note that the container created by workflows maps part of the local volume to
+# the container. Specifically ~/actions-runner/_work. Successive jobs can reuse
+# the output of their predecessors without having to generate artifacts.
+#
+# Make output available between jobs:
+#    https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+#
+# Make output available between steps:
+#   https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
+jobs:
+  build-no-viz:
+    runs-on: [self-hosted, linux]
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: nightly-scenarios
+          token: ${{ secrets.PIPELINE_PAT }}
+          submodules: true
+
+      - name: Set script as executable
+        run: |
+          cd nightly-scenarios
+          chmod +x makeme.sh
+
+      - name: Try to build without viz
+        run: |
+          cd nightly-scenarios
+          ./makeme.sh -DBUILD_TESTS=0 -DBUILD_VIZ=0 -DCMAKE_BUILD_TYPE=release -DOPTIMIZATION_OPT=o3
+
+      - name: Set date string
+        id: date_step
+        run: |
+          date_str=$(TZ='America/New_York' date +"%Y-%m-%d-%H-%M-%S")
+          echo "DATE_STR=${date_str}" >> $GITHUB_OUTPUT
+    outputs:
+      BUILD_DATE_STR: ${{ steps.date_step.outputs.DATE_STR }}
+
+  run-random-scenarios:
+    needs: build-no-viz
+    runs-on: [self-hosted, linux]
+    defaults:
+      run:
+        working-directory: nightly-scenarios
+    container:
+      image: ${{vars.BUILD_IMAGE}}
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        num_moving_bodies: [4, 8, 16, 32]
+        num_static_bodies: [32, 64]
+        treatment: [1, 2, 3, 4, 5, 6, 7, 8]
+    steps:
+      - name: Generate random scenario ${{ matrix.num_moving_bodies }} ${{ matrix.num_static_bodies }} ${{ matrix.treatment }}
+        run: |
+          python3 ./scripts/scenario_generator.py --scenario_filename "scenario_${{ matrix.num_moving_bodies }}_${{ matrix.num_static_bodies }}_${{ matrix.treatment }}.json" --num_moving_bodies ${{ matrix.num_moving_bodies }} --num_static_bodies ${{ matrix.num_static_bodies }}
+
+      - name: Run no-viz on scenario
+        id: run_scenario
+        run: |
+          cd build
+          ./bin/api_no_viz ../scenario_${{ matrix.num_moving_bodies }}_${{ matrix.num_static_bodies }}_${{ matrix.treatment }}.json
+
+      - name: Upload failed scenarios
+        if: ${{ vars.UPLOAD_SCENARIO_ON_FAILURE == '1' && steps.run_scenario.outcome != 'success' && !cancelled() }}
+        run: |
+          f=scenario_${{ matrix.num_moving_bodies }}_${{ matrix.num_static_bodies }}_${{ matrix.treatment }}.json
+          date_str=${{ needs.build-no-viz.outputs.BUILD_DATE_STR }}
+          python3 ./scripts/upload_artifacts.py  ${{secrets.AWS_ACCESS_KEY_ID}} ${{secrets.AWS_SECRET_ACCESS_KEY}} ${{vars.ARTIFACT_BUCKET_NAME}} $f ${GITHUB_REF_NAME} failed-nightly-scenarios ${date_str}

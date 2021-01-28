@@ -1,0 +1,10 @@
+add_subdirectory( containers )
+add_subdirectory( geometry )
+add_subdirectory( graph )
+add_subdirectory( json )
+add_subdirectory( logger )
+add_subdirectory( math )
+
+set( BUILD_TRECS_DEMOS 0 )
+set( BUILD_TRECS_TESTS 0 )
+add_subdirectory( trecs )

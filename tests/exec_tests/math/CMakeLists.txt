@@ -1,0 +1,6 @@
+add_subdirectory( attitude_tests )
+add_subdirectory( heap_matrix_tests )
+add_subdirectory( matrix_tests )
+add_subdirectory( quaternion_tests )
+add_subdirectory( simd_ops_tests )
+add_subdirectory( vector4_tests )
