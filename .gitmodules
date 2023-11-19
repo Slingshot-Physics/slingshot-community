@@ -16,5 +16,4 @@
 	url = https://github.com/therealjtgill/Catch2_header_only
 [submodule "common/trecs"]
 	path = common/trecs
-	url = git@github.com:therealjtgill/trecs.git
-	branch = main
+	url = git@github.com:Slingshot-Physics/t-recs-community
