@@ -14,3 +14,6 @@
 [submodule "tests/Catch2_header_only"]
 	path = tests/exec_tests/Catch2_header_only
 	url = https://github.com/therealjtgill/Catch2_header_only
+[submodule "common/trecs"]
+	path = common/trecs
+	url = git@github.com:Slingshot-Physics/t-recs-community
